@@ -1,0 +1,34 @@
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+
+def quantum_kernel(circuit, ref_point):
+
+    # 3 reference qubits for 3 PCA components
+    ref = QuantumRegister(3, 'ref')
+    circuit.add_register(ref)
+
+    # ancilla for SWAP test
+    anc = QuantumRegister(1, 'anc')
+    anc_c = ClassicalRegister(1, 'anc_c')
+    circuit.add_register(anc)
+    circuit.add_register(anc_c)
+
+    # encode reference vector on 3 qubits
+    sub = QuantumCircuit(3)
+    sub = feature_map(sub, ref_point)
+    circuit.compose(sub, qubits=ref, inplace=True)
+
+    anc_q = anc[0]
+
+    # SWAP test
+    circuit.h(anc_q)
+
+    # swap between teleported states (6,7,8) and (ref[0],ref[1],ref[2])
+    circuit.cswap(anc_q, 6, ref[0])
+    circuit.cswap(anc_q, 7, ref[1])
+    circuit.cswap(anc_q, 8, ref[2])
+
+    circuit.h(anc_q)
+
+    circuit.measure(anc_q, anc_c[0])
+
+    return circuit
