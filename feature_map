@@ -1,0 +1,19 @@
+#feature map
+#feature map encodes a classical data point into a quantum state using a quantum circuit
+def feature_map(circuit , data):
+    n = len(data)
+    for i  in range(len(data)):
+        circuit.h(i)
+    for i , value in enumerate(data):
+        value  = float(value)
+        circuit.rx(2 *np.pi * value,i)
+        circuit.ry(2 *np.pi * value,i)
+    for i in range(n-1):
+        circuit.cz(i ,i+1)
+    return circuit
+data_point = X_train_pca[0]
+
+c = QuantumCircuit(len(data_point))
+c = feature_map(c, data_point)
+
+c.draw()
