@@ -1,0 +1,25 @@
+The concpet is simple but furturistic 
+
+In the coming future when quantum technologie evolve all the quantum machine might not have the capability to perfrom quantum simulations
+Some quantum machine might be good at encoding the classical data into quantum circuits while some machine might be good at perfroming quantum simulations 
+In such secenarios where two or more quantum machines have to work on a single task we can use this concept of teleportation we can actually teleport across quantum machine 
+So what I have done is simple took a Quantum Support Vector machine tried teleporting the qubits encoded by the feature to the quantum kernel which is situated at the lower part of the quantum circuit 
+And it worked 
+For  this experiment I used the MNIST digits dataset with a total of 150 samples (100 for training, 50 for testing). 
+
+After applying PCA (3 components), the classical data was encoded into quantum states using a feature map.
+
+From there, I implemented multi-qubit quantum teleportation to directly move these encoded qubits into a separate quantum kernel block lower in the circuit.
+
+This kernel was then used to train a Quantum SVM.
+
+Dataset size: 150 samples 
+PCA components : 3 
+Teleportation : multiqubit teleportation 
+Model : Quantum Support Vector Machine 
+Train / test split : 100 / 50 
+Accuracy : 50 %
+
+As expected, teleportation didn’t improve the accuracy — that wasn’t the goal. The goal was to check weather the teleportation implemented Quantum Support Vector Machine can function end to end and it dose .
+
+This experiment although performed using small sample size and fewer PCA components sheds light on distributed quantum machine learning where multiple quantum devices may handle different stages of a pipeline .
